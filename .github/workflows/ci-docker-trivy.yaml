@@ -49,3 +49,26 @@ jobs:
           exit-code: 1
           vuln-type: os,library
           ignore-unfixed: true
+deploy:
+    runs-on: self-hosted
+    needs: docker
+
+    steps:
+      - name: Pull de l'image Docker
+        run: |
+          docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+      - name: Stopper le conteneur existant
+        run: |
+          docker stop ${{ env.IMAGE_NAME }} || true
+
+      - name: Supprimer l'ancien conteneur
+        run: |
+          docker rm ${{ env.IMAGE_NAME }} || true
+
+      - name: Lancer le nouveau conteneur
+        run: |
+          docker run -d \
+            --name ${{ env.IMAGE_NAME }} \
+            -p 80:80 \
+            ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
