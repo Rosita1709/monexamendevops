@@ -8,7 +8,6 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-
     env:
       IMAGE_NAME: ci-html-demo
       IMAGE_TAG: latest
@@ -18,11 +17,11 @@ jobs:
       - name: Récupération du code
         uses: actions/checkout@v4
 
-      - name: Test Varibales
+      - name: Test Variables
         run: |
-          echo "Varibale MYVAR  ${{ vars.MYVAR }} "
-          echo "Varibale IMAGE_NAME $IMAGE_NAME"
-          echo "Varibale DOCKER_REGISTRY  $DOCKER_REGISTRY "
+          echo "Variable MYVAR  ${{ vars.MYVAR }} "
+          echo "Variable IMAGE_NAME $IMAGE_NAME"
+          echo "Variable DOCKER_REGISTRY  $DOCKER_REGISTRY "
 
       - name: Connexion à Docker Hub
         run: |
@@ -49,7 +48,8 @@ jobs:
           exit-code: 1
           vuln-type: os,library
           ignore-unfixed: true
-deploy:
+
+  deploy:
     runs-on: self-hosted
     needs: docker
 
