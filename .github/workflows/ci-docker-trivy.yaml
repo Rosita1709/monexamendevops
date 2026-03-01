@@ -12,7 +12,7 @@ jobs:
     env:
       IMAGE_NAME: ci-html-demo
       IMAGE_TAG: latest
-      DOCKER_REGISTRY: moisawade
+      DOCKER_REGISTRY: rosita17
 
     steps:
       - name: Récupération du code
@@ -43,7 +43,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.20.0
         with:
-          image-ref: moisawade/ci-html-demo:latest
+          image-ref: rosita17/ci-html-demo:latest
           format: table
           severity: CRITICAL,HIGH
           exit-code: 1
